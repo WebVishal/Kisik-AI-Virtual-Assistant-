@@ -37,19 +37,33 @@ const VirtualAssistant: React.FC = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const videoRef = useRef<HTMLVideoElement | null>(null);
 
+
     const getCameraStream = async () => {
         try {
             const mediaStream = await navigator.mediaDevices.getUserMedia({
-                video: true,
+                video: {
+                    facingMode: { exact: 'environment' }, // Prefer back camera
+                },
             });
             setStream(mediaStream);
-            if (videoRef.current) videoRef.current.srcObject = mediaStream;
+            if (videoRef.current) {
+                videoRef.current.srcObject = mediaStream;
+            }
         } catch (error) {
-            console.log(error)
-            setErrorMessage("Error accessing the camera. Please try again.",);
+            console.warn('Back camera not available, switching to front camera', error);
+            try {
+                const mediaStream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'user' }, // Fallback to front camera
+                });
+                setStream(mediaStream);
+                if (videoRef.current) {
+                    videoRef.current.srcObject = mediaStream;
+                }
+            } catch (fallbackError) {
+                console.error('Error accessing any camera', fallbackError);
+            }
         }
     };
-
     useEffect(() => {
         getCameraStream();
         return () => {
@@ -126,7 +140,7 @@ const VirtualAssistant: React.FC = () => {
         getCameraStream();
     };
     return (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
 
             {errorMessage && (
                 <div className="w-full mb-4 p-4 text-red-700 bg-red-100 rounded">
@@ -185,7 +199,7 @@ const VirtualAssistant: React.FC = () => {
                     shadow-md hover:bg-orange-600 
                     transition duration-300"
                 >
-                    New Challenge
+                    New Task 🔄
                 </button>
             )}
         </div>
