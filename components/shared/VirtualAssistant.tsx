@@ -57,7 +57,7 @@ const VirtualAssistant: React.FC = () => {
                 stream.getTracks().forEach((track) => track.stop());
             }
         };
-    }, [stream]);
+    }, []);
 
     const analyzeProblem = async () => {
         setLoading(true);
