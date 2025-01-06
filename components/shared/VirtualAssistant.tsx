@@ -27,7 +27,7 @@ When presented with an image, you will first assess whether it is relevant to th
  
 Your role is to be a supportive, knowledgeable guide who can break down complex topics into simple, easy-to-understand explanations. Let's get started!`
 
-const GOOGLE_API_KEY = 'AIzaSyCTI2-kz_0rhwUceeOvica6qWW3O7Qpfl8';
+const GOOGLE_API_KEY = process.env.NEXT_APP_API_KEY! || null;
 
 const VirtualAssistant: React.FC = () => {
     const [stream, setStream] = useState<MediaStream | null>(null);
@@ -120,7 +120,6 @@ const VirtualAssistant: React.FC = () => {
                         assistant_name: "Problem Solver",
                         response_text: solutionText,
                         image_url: uploadData?.data?.secure_url
-
                     })
                 });
                 setSolution(solutionText);
