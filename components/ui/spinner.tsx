@@ -36,7 +36,7 @@ interface SpinnerContentProps
   children?: React.ReactNode;
 }
 
-export const Spinner =({ size, show, children, className }: SpinnerContentProps)=> {
+const Spinner =({ size, show, children, className }: SpinnerContentProps)=> {
   return (
     <span className={spinnerVariants({ show })}>
       <Loader2 className={cn(loaderVariants({ size }), className)}/>
@@ -45,3 +45,4 @@ export const Spinner =({ size, show, children, className }: SpinnerContentProps)
   );
 }
 Spinner.displayName="Spinner";
+export {Spinner}
