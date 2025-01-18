@@ -44,5 +44,4 @@ const Spinner =({ size, show, children, className }: SpinnerContentProps)=> {
     </span>
   );
 }
-Spinner.displayName="Spinner";
-export {Spinner}
+export default Spinner

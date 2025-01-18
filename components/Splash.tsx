@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 
-import { Spinner } from "@/components/ui/Spinner";
+import Spinner from "@/components/ui/Spinner";
 
 type SplashProps = {
   handleReady: () => void;
@@ -11,7 +11,7 @@ type SplashProps = {
 export const Splash: React.FC<SplashProps> = ({ handleReady }) => {
 
   useEffect(() => {
-    
+
     // Set a timeout to call handleReady after a few seconds (e.g., 3 seconds)
     const timer = setTimeout(() => {
       handleReady();
