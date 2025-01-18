@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 
-import Spinner from "@/components/ui/Spinner";
+import Spinner from "@/components/ui/spinner";
 
 type SplashProps = {
   handleReady: () => void;
