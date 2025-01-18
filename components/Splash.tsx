@@ -11,6 +11,7 @@ type SplashProps = {
 export const Splash: React.FC<SplashProps> = ({ handleReady }) => {
 
   useEffect(() => {
+    
     // Set a timeout to call handleReady after a few seconds (e.g., 3 seconds)
     const timer = setTimeout(() => {
       handleReady();
