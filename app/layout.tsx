@@ -1,19 +1,25 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans } from "next/font/google";
-import { cn } from "@/lib/utils";
-import "./globals.css";
+import { Inter, Space_Mono } from "next/font/google";
 
-const IBMPlex = IBM_Plex_Sans({
+import "./global.css";
+
+// Font
+const fontSans = Inter({
   subsets: ["latin"],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-ibm-plex'
+  display: "swap",
+  variable: "--font-sans",
 });
 
+const fontMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-mono",
+});
 
 export const metadata: Metadata = {
-  title: "Learnigng AI Assistant",
-  description: "Learning AI Assistant is a platform to help you prepare for your exams. It provides you with previous year questions, coding questions, and other resources to help you prepare for your exams.",
-  keywords: ["AI", "Assistant", "Learning", "Exams", "Questions", "Coding", "Resources"],
+  title: "Daily Bots Demo",
+  description: "Daily Bots voice-to-voice example app",
+  metadataBase: new URL("https://demo.dailybots.ai"),
 };
 
 export default function RootLayout({
@@ -21,10 +27,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
-    <html lang="en" style={{ scrollBehavior: "smooth"}}>
-      <body className={cn("font-IBMPlex antialiased", IBMPlex.variable)}>
+    <html lang="en">
+      <body className={`${fontSans.variable} ${fontMono.variable}`}>
         {children}
       </body>
     </html>

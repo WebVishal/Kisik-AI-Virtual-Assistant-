@@ -1,97 +1,57 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-	darkMode: ["class"],
-	content: [
-	  "./pages/**/*.{ts,tsx}",
-	  "./components/**/*.{ts,tsx}",
-	  "./app/**/*.{ts,tsx}",
-	  "./src/**/*.{ts,tsx}",
-	],
-	prefix: "",
-	theme: {
-	  container: {
-		center: true,
-		padding: "2rem",
-		screens: {
-		  "2xl": "1400px",
-		},
-	  },
-	  extend: {
-		colors: {
-		  border: "hsl(var(--border))",
-		  input: "hsl(var(--input))",
-		  ring: "hsl(var(--ring))",
-		  background: "hsl(var(--background))",
-		  foreground: "hsl(var(--foreground))",
-		  purple: {
-			100: "#F4F7FE",
-			200: "#BCB6FF",
-			400: "#868CFF",
-			500: "#7857FF",
-			600: "#4318FF",
-		  },
-		  dark: {
-			400: "#7986AC",
-			500: "#606C80",
-			600: "#2B3674",
-			700: "#384262",
-		  },
-		  primary: {
-			DEFAULT: "hsl(var(--primary))",
-			foreground: "hsl(var(--primary-foreground))",
-		  },
-		  secondary: {
-			DEFAULT: "hsl(var(--secondary))",
-			foreground: "hsl(var(--secondary-foreground))",
-		  },
-		  destructive: {
-			DEFAULT: "hsl(var(--destructive))",
-			foreground: "hsl(var(--destructive-foreground))",
-		  },
-		  muted: {
-			DEFAULT: "hsl(var(--muted))",
-			foreground: "hsl(var(--muted-foreground))",
-		  },
-		  accent: {
-			DEFAULT: "hsl(var(--accent))",
-			foreground: "hsl(var(--accent-foreground))",
-		  },
-		  popover: {
-			DEFAULT: "hsl(var(--popover))",
-			foreground: "hsl(var(--popover-foreground))",
-		  },
-		  card: {
-			DEFAULT: "hsl(var(--card))",
-			foreground: "hsl(var(--card-foreground))",
-		  },
-		},
-		fontFamily: {
-		  IBMPlex: ["var(--font-ibm-plex)"],
-		},
-		backgroundImage: {
-		  "purple-gradient": "url('/assets/images/gradient-bg.svg')",
-		  banner: "url('/assets/images/banner-bg.png')",
-		},
-		borderRadius: {
-		  lg: "var(--radius)",
-		  md: "calc(var(--radius) - 2px)",
-		  sm: "calc(var(--radius) - 4px)",
-		},
-		keyframes: {
-		  "accordion-down": {
-			from: { height: "0" },
-			to: { height: "var(--radix-accordion-content-height)" },
-		  },
-		  "accordion-up": {
-			from: { height: "var(--radix-accordion-content-height)" },
-			to: { height: "0" },
-		  },
-		},
-		animation: {
-		  "accordion-down": "accordion-down 0.2s ease-out",
-		  "accordion-up": "accordion-up 0.2s ease-out",
-		},
-	  },
-	},
-	plugins: [require("tailwindcss-animate")],
-  };
+import type { Config } from "tailwindcss";
+import colors from "tailwindcss/colors";
+import defaultTheme from "tailwindcss/defaultTheme";
+
+const config: Config = {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          ...colors.gray,
+          DEFAULT: colors.gray[900],
+          foreground: colors.white,
+          hairline: colors.gray[100],
+        },
+        ring: colors.gray[500],
+      },
+      fontFamily: {
+        sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
+        mono: ["var(--font-mono)"],
+      },
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: "12px",
+          md: "1rem",
+        },
+      },
+      backgroundImage: {
+        colorWash: "url('/color-wash-bg.png')",
+        cardBorder: `linear-gradient(90deg, white, white), linear-gradient(0deg, ${colors.gray[300]}, ${colors.gray[200]})`,
+        selectArrow:
+          "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQgNkw4IDEwTDEyIDYiIHN0cm9rZT0iIzY0NzQ4QiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=')",
+      },
+      backgroundPosition: {
+        selectArrow: "right 1rem center",
+      },
+      boxShadow: {
+        short:
+          "0px 7px 2px 0px rgba(0, 0, 0, 0), 0px 5px 2px 0px rgba(0, 0, 0, 0.01), 0px 3px 2px 0px rgba(0, 0, 0, 0.03), 0px 1px 1px 0px rgba(0, 0, 0, 0.04), 0px 0px 1px 0px rgba(0, 0, 0, 0.05)",
+        mid: "0px 100px 28px 0px rgba(0, 0, 0, 0), 0px 64px 26px 0px rgba(0, 0, 0, 0.01), 0px 36px 22px 0px rgba(0, 0, 0, 0.03), 0px 16px 16px 0px rgba(0, 0, 0, 0.04), 0px 4px 9px 0px rgba(0, 0, 0, 0.05)",
+        long: "0px 360px 101px 0px rgba(0, 0, 0, 0), 0px 231px 92px 0px rgba(0, 0, 0, 0), 0px 130px 78px 0px rgba(0, 0, 0, 0.02),0px 58px 58px 0px rgba(0, 0, 0, 0.03), 0px 14px 32px 0px rgba(0, 0, 0, 0.03)",
+        stats: "0px -2px 15px 0px rgba(0, 0, 0, 0.07)",
+      },
+      animation: {
+        wiggle: "wiggle 0.2s 1",
+        appear: "appear 0.5s ease-out forwards",
+      },
+    },
+  },
+  plugins: [],
+};
+export default config;

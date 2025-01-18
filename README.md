@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+[![Try](https://img.shields.io/badge/try_it-here-blue)](https://vision.dailybots.ai)
+[![Deploy](https://img.shields.io/badge/Deploy_to_Vercel-black?style=flat&logo=Vercel&logoColor=white)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdaily-demos%2Fdaily-bots-web-demo&env=DAILY_BOTS_URL,DAILY_API_KEY,NEXT_PUBLIC_BASE_URL&project-name=daily-bots-demo&repository-name=daily-bots-web-demo)
 
-## Getting Started
 
-First, run the development server:
+<img src="public/icon.png" width="120px">
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Daily Bots Vision
+
+Example NextJS app that demonstrates vision capabilities of [Daily Bots](https://bots.daily.co). 
+
+Uses `vision_2024_08` [Daily Bot profile](https://docs.dailybots.ai/api-reference/server/bot_profiles#bot-profiles).
+
+## Other demos
+
+- [Multi-model](https://github.com/daily-demos/daily-bots-web-demo/) - Main demo showcase.
+- [Vision](https://github.com/daily-demos/daily-bots-web-demo/tree/khk/vision-for-launch) - Anthropic, describe webcam.
+
+
+## Getting started
+
+### Configure your local environment
+
+```shell
+cp env.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`NEXT_PUBLIC_BASE_URL` defaults to `/api`, which is configured as Next server-side route handler. You can pass through service API keys, override service and config options within this route.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`DAILY_BOTS_URL` URL of the Daily Bots `start` endpoint (https://api.daily.co/v1/bots/start)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+`DAILY_API_KEY` your Daily API key obtained by registering at https://bots.daily.co.
 
-To learn more about Next.js, take a look at the following resources:
+### Install dependencies
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```shell
+yarn 
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Run the project
 
-## Deploy on Vercel
+```shell
+yarn run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## How does this work?
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Daily Bots is built on two open-source technologies:
+
+- [Pipecat](https://www.pipecat.ai) - Python library for building real-time agent
+- [RTVI](https://github.com/rtvi-ai) - Open-standard for Real-Time Voice [and Video] Inference
+
+This project makes use of [`realtime-ai`](https://www.npmjs.com/package/realtime-ai), [`realtime-ai-react`](https://www.npmjs.com/package/realtime-ai-react) and [`realtime-ai-daily`](https://www.npmjs.com/package/realtime-ai-daily) to interact with the Daily Bot.
+
+Learn more about the RTVI web client libraries [on the docs](https://docs.rtvi.ai).
+
+### Configuration
+
+All Voice Client configuration can be found in the [rtvi.config.ts](/rtvi.config.ts) file. You can edit any prompts, services of config settings in this file.
+
+
+### API routes
+
+This project exposes one server-side route:
+
+- [api/route.ts](app/api/route.ts)
+
+The routes project a secure way to pass any required secrets or configuration directly to the Daily Bots API. Your `NEXT_PUBLIC_BASE_URL` must point to your `/api` route and passed to the `VoiceClient`. 
+
+The routes are passed a `config` array and `services` map, which can be passed to the Daily Bots REST API, or modified securely. 
+
+Daily Bots `https://api.daily.co/v1/bots/start` has some required properties, which you can read more about [here](https://docs.dailybots.ai/api-reference/endpoint/startBot). You must set:
+
+- `bot_profile`
+- `max_duration`
+- `config`
+- `services`
