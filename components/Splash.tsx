@@ -31,4 +31,5 @@ export const Splash: React.FC<SplashProps> = ({ handleReady }) => {
   );
 };
 
+
 export default Splash;
